@@ -32,7 +32,9 @@ function setup()
 
 function draw()
 {
+    
 	background(100, 155, 255); //fill the sky blue
+
 
 	noStroke();
 	fill(75,150,28);
@@ -187,6 +189,9 @@ function draw()
     ellipse(440,412,10,25);
     strokeWeight(4);
     point(440,412);
+    
+    
+
     
     
     text("("+mouseX+","+mouseY+")", mouseX, mouseY);
