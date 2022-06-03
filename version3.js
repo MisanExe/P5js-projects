@@ -29,7 +29,7 @@ of code to draw then you've probably over done it.
 ///Variables for character and object control //
 ///////////////////////////////////////////////
 //game character 
-var origin_x = 50 ; 
+var origin_x = 108; 
 var origin_y = 437;
 var gameChar_x = 0;
 var gameChar_y = 0;
@@ -44,7 +44,6 @@ var collectables;
 var mountain;
 //cloud
 var cloud;
-var distance;
 
 //////////////////////////////////////////
 /// Varables for Game interaction  //////
@@ -74,9 +73,9 @@ function setup()
     treePos_y = 282;
     //init canyon
     canyon = { x_pos: 0, width :100};
-    canyon.x_pos = 100; canyon.width = 70;
+    canyon.x_pos = 29; canyon.width = 70;
     //init collectables
-    collectables = {x_pos :100, y_pos :100, size :1, isFound : false};
+    collectables = {x_pos :100, y_pos :100, size :1};
     //init mountain 
     mountain = {x_pos : 100, y_pos : 100};
     //init cloud
@@ -208,40 +207,61 @@ function draw()
     fill(100,155,255);
     rect(canyon.x_pos,431,canyon.width,169);
 
-	
+	//5. a collectable token - eg. a jewel, fruit, coins
+	//... add your code here
+    //Collectable1
+    strokeWeight(4);
+    fill(232,198,31);
+    ellipse(collectables.x_pos+291, collectables.y_pos+312,  15+collectables.size, 25+collectables.size);
+    fill(204,160,17);
+    stroke(0);
+    strokeWeight(2);
+    ellipse(collectables.x_pos+293, collectables.y_pos+312,  10+collectables.size, 25+collectables.size);
+    strokeWeight(4);
+    point(collectables.x_pos+292,collectables.y_pos+313);
+    //collectable 2
+    fill(232,198,31);
+    ellipse(collectables.x_pos+316, collectables.y_pos+312,15+collectables.size,25+collectables.size);
+    fill(204,160,17);
+    stroke(0);
+    strokeWeight(2);
+    ellipse(collectables.x_pos+318, collectables.y_pos+312, 10+collectables.size,25+collectables.size);
+    strokeWeight(4);
+    point(collectables.x_pos+318,collectables.y_pos+312);
+
+    //collectable3
+    fill(232,198,31);
+    ellipse(collectables.x_pos+338, collectables.y_pos+310,15+collectables.size,25+collectables.size);
+    fill(204,160,17);
+    stroke(0);
+    strokeWeight(2);
+    ellipse(collectables.x_pos+340, collectables.y_pos+312,  10+collectables.size,  25+collectables.size);
+    strokeWeight(4);
+    point(collectables.x_pos+340,collectables.y_pos+312);
     
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*@character
         Character code comes last to render character last
 */
-    
-        //FaceFront() ;
+
+        //FaceFront();
         //walkLeft();
         //walkRight();
         //jumpLeft();
         //jumpRight();
         //jumpForward();
 
-        if (dist(gameChar_x, gameChar_y, collectables.x_pos+291, collectables.y_pos+312)<40){
-            collectables.isFound = true;
-        }
-
-        if(!collectables.isFound ){
-            strokeWeight(2);
-            drawCollectable();
-        }
-        
 
         strokeWeight(2);
         fill(255,255,255);
     text("("+mouseX+","+mouseY+")", mouseX, mouseY);
         //Move left or Right
-        if(isLeft && !jump && !isPlummeting){   //move left 
+        if(isLeft && !jump){   //move left 
             walkLeft();
-            gameChar_x -= 5;
-        }else if (isRight && ! jump && !isPlummeting){ //move right
+            gameChar_x -= 10;
+        }else if (isRight && ! jump){ //move right
             walkRight();
-            gameChar_x += 5;
+            gameChar_x += 10;
         }else if(jump && isLeft){
             jumpLeft();
         }else if(jump && isRight){
@@ -252,9 +272,8 @@ function draw()
             
 
         //event
-        if (jump && !ceiling && !isPlummeting){
-            gameChar_y -= 10; 
-            gameChar_x +=cos(45);
+        if (jump && !ceiling){
+            gameChar_y -= 10;
         }else if (ceiling){
            if (gameChar_y += 10 ){ //as long as this line of code is valid isfalling will be set to true
                isFalling = true;
@@ -262,21 +281,14 @@ function draw()
            } ;
             jump = false;
         }
-        
-        console.log("char x: "+gameChar_x+" canyon x:"+canyon.x_pos+" "+(gameChar_x-canyon.x_pos)); 
-        if( (gameChar_x - canyon.x_pos) <= canyon.width && !((gameChar_x-canyon.x_pos)<20) && gameChar_y >= origin_y){
-            isPlummeting = true;
-        }else{
-            isPlummeting = false;
-        }
 
-        if(isPlummeting){
-            gameChar_y+=1;
-        }
+
+        
+
 }
- 
+
 /*
- @mouse pressed event
+@mouse pressed event
 */
 
 
@@ -464,21 +476,6 @@ function jumpForward(){
     //left hand
     rect(gameChar_x+10, gameChar_y-50,16,5);
 
-}
-
-function drawCollectable(){
-    //5. a collectable token - eg. a jewel, fruit, coins
-	//... add your code here
-    //Collectable1
-    strokeWeight(4);
-    fill(232,198,31);
-    ellipse(collectables.x_pos+291, collectables.y_pos+312,  15+collectables.size, 25+collectables.size);
-    fill(204,160,17);
-    stroke(0);
-    strokeWeight(2);
-    ellipse(collectables.x_pos+293, collectables.y_pos+312,  10+collectables.size, 25+collectables.size);
-    strokeWeight(4);
-    point(collectables.x_pos+292,collectables.y_pos+313);
 }
 
 /*function mousePressed() {
